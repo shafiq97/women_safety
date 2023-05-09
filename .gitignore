@@ -1,0 +1,14 @@
+# macOS specific
+.DS_Store
+
+# Flutter/Dart specific
+**/build/
+**/ios/Pods/
+**/android/.gradle/
+**/android/build/
+**/android/app/build/
+**/android/gradle/
+**/ios/Flutter/.symlinks/
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/App.framework/
+**/ios/Flutter/Flutter.framework/
