@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   //width: MediaQuery.of(context).size.width,
                   child: Center(
                       child: TextWidget(
-                text: "By Shafiq",
+                text: "By Shima",
                 fontsize: 24,
                 fontweight: FontWeight.bold,
                 color: Color.fromARGB(194, 147, 146, 146),

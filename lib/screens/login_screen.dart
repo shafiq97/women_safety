@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: Text(
-                    "By Shafiq...",
+                    "By Shima...",
                     style: TextStyle(fontSize: 15, color: Colors.grey[600]),
                   ),
                 )
