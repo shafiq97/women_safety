@@ -89,6 +89,8 @@ dependencies:
   timelines: ^0.1.0
   table_calendar: ^3.0.5
   flutter_clean_calendar: ^1.1.0
+
+  lottie: ^2.3.2
   
   
   

@@ -10,6 +10,7 @@ import 'package:google_login/utils/next_screen.dart';
 import 'package:google_login/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:provider/provider.dart';
 
@@ -43,9 +44,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 Padding(
+
+                  
                   padding: const EdgeInsets.all(10.0),
-                  child: Image(
-                    image: AssetImage("assets/443.jpg"),
+                  child: Lottie.asset(
+                    'assets/animation.json', // replace this with the path to your Lottie animation file
                     height: 400,
                     width: 400,
                     fit: BoxFit.contain,
@@ -55,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 Center(
-                  child: const Text("Women Safety",
+                  child: const Text("WOMEN SAFETY",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.w500)),
                 ),
