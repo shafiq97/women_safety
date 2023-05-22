@@ -26,7 +26,7 @@ class _BlogsScreenState extends State<BlogsScreen> {
               child: TextWidget(
                   fontsize: 24,
                   fontweight: FontWeight.w500,
-                  text: "Women Safety Artices",
+                  text: "Women Safety Articles",
                   color: Color.fromARGB(255, 35, 34, 34)),
             ),
           ),
