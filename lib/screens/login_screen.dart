@@ -44,8 +44,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 Padding(
-
-                  
                   padding: const EdgeInsets.all(10.0),
                   child: Lottie.asset(
                     'assets/animation.json', // replace this with the path to your Lottie animation file
