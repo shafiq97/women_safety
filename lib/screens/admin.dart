@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:io'; // used for file operations
 import 'package:external_path/external_path.dart';
+import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  late Future<List<String>> _userEmails;
+  late Future<List<Map<String, dynamic>>> _userEmails;
 
   @override
   void initState() {
@@ -21,21 +23,26 @@ class _AdminPageState extends State<AdminPage> {
     _userEmails = _getUserEmails();
   }
 
-  Future<List<String>> _getUserEmails() async {
+  Future<List<Map<String, dynamic>>> _getUserEmails() async {
     QuerySnapshot _myDoc =
-        await FirebaseFirestore.instance.collection('users').get();
+        await FirebaseFirestore.instance.collection('sign_in_log').get();
     List<DocumentSnapshot> _myDocCount = _myDoc.docs;
-    List<String> emails = _myDocCount.map((doc) {
+    List<Map<String, dynamic>> users = _myDocCount.map((doc) {
       final data = doc.data() as Map<String, dynamic>?;
-      return data?['email'] as String? ?? '';
+      return {
+        'email': data?['email'] as String? ?? '',
+        'sign_in_datetime': DateFormat.yMMMd().add_jm().format(
+            (data?['sign_in_datetime'] as Timestamp? ?? Timestamp.now())
+                .toDate()),
+      };
     }).toList();
 
     // Convert to Set to remove duplicates, then convert back to List
-    List<String> uniqueEmails = emails.toSet().toList();
-    return uniqueEmails;
+    List<Map<String, dynamic>> uniqueUsers = users.toSet().toList();
+    return uniqueUsers;
   }
 
-  Future<void> _createPdf(List<String> userEmails) async {
+  Future<void> _createPdf(List<Map<String, dynamic>> users) async {
     final pdf = pw.Document();
     final ByteData fontData = await rootBundle.load('assets/Helvetica.ttf');
     final ttf = pw.Font.ttf(fontData);
@@ -52,12 +59,13 @@ class _AdminPageState extends State<AdminPage> {
     pdf.addPage(pw.Page(
       build: (pw.Context context) => pw.Center(
         child: pw.ListView.builder(
-          itemCount: userEmails.length,
-          itemBuilder: (pw.Context context, int index) =>
-              pw.Text(userEmails[index]),
+          itemCount: users.length,
+          itemBuilder: (pw.Context context, int index) => pw.Text(
+              '${users[index]['email']} - Last sign-in: ${users[index]['sign_in_datetime']}'),
         ),
       ),
     ));
+
     String paths;
 
     paths = await ExternalPath.getExternalStoragePublicDirectory(
@@ -84,14 +92,15 @@ class _AdminPageState extends State<AdminPage> {
             icon: const Icon(Icons.save),
             tooltip: 'Save to PDF',
             onPressed: () {
-              _userEmails.then((emails) => _createPdf(emails));
+              _userEmails.then((users) => _createPdf(users));
             },
           ),
         ],
       ),
-      body: FutureBuilder<List<String>>(
+      body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _userEmails,
-        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -111,7 +120,9 @@ class _AdminPageState extends State<AdminPage> {
                     itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(snapshot.data![index]),
+                        title: Text(snapshot.data![index]['email']),
+                        subtitle: Text(
+                            'Last sign-in: ${snapshot.data![index]['sign_in_datetime']}'),
                       );
                     },
                   ),

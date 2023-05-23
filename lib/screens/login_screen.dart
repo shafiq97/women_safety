@@ -14,6 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -43,6 +44,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // If error occurred
     // adminController.error();
+  }
+
+  void logSignIn(String email) {
+    FirebaseFirestore.instance.collection('sign_in_log').add({
+      'email': email,
+      'sign_in_datetime': DateTime.now(),
+    });
   }
 
   @override
@@ -234,6 +242,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   .saveDataToSharedPreferences()
                   .then((value) => sp.setSignIn().then((value) {
                         googleController.success();
+                        logSignIn(sp
+                            .email!); // Replace sp.email with the actual email of the signed-in user
                         handleAfterSignIn();
                       })));
             } else {
@@ -242,6 +252,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   .saveDataToSharedPreferences()
                   .then((value) => sp.setSignIn().then((value) {
                         googleController.success();
+                        logSignIn(sp
+                            .email!); // Replace sp.email with the actual email of the signed-in user
                         handleAfterSignIn();
                       })));
             }
