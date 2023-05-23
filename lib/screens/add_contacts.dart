@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_sms/flutter_sms.dart';
@@ -113,6 +115,12 @@ class _AddContactsPageState extends State<AddContactsPage> {
     Placemark place = placemarks[0];
     address =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    // Create a Google Maps link
+    String googleMapsUrl =
+        'https://www.google.com/maps/search/?api=1&query=${position.latitude},${position.longitude}';
+    // Use the Google Maps link instead of the address
+    address = googleMapsUrl;
+    log(googleMapsUrl.toString());
     setState(() {});
   }
 
@@ -392,7 +400,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
   Future<void> _sendSMS(List<String> recipients) async {
     try {
       String _result = await sendSMS(
-        message: _controllerMessage.text + '\n${address}',
+        message: _controllerMessage.text + '\nLocation: $address',
         recipients: recipients,
         sendDirect: sendDirect,
       );

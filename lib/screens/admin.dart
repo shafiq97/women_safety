@@ -1,5 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart'; // used for getting the file directory
+import 'dart:io'; // used for file operations
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -31,11 +38,49 @@ class _AdminPageState extends State<AdminPage> {
     return uniqueEmails;
   }
 
+  Future<void> _createPdf(List<String> userEmails) async {
+    final pdf = pw.Document();
+    final ByteData fontData = await rootBundle.load('assets/Helvetica.ttf');
+    final ttf = pw.Font.ttf(fontData);
+
+    pdf.addPage(pw.Page(
+      build: (pw.Context context) {
+        return pw.Center(
+          child: pw.Text('Hello World',
+              style: pw.TextStyle(font: ttf, fontSize: 40)),
+        );
+      },
+    ));
+
+    pdf.addPage(pw.Page(
+      build: (pw.Context context) => pw.Center(
+        child: pw.ListView.builder(
+          itemCount: userEmails.length,
+          itemBuilder: (pw.Context context, int index) =>
+              pw.Text(userEmails[index]),
+        ),
+      ),
+    ));
+
+    final output = await getTemporaryDirectory();
+    final file = File('${output.path}/users.pdf');
+    await file.writeAsBytes(await pdf.save());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Admin Page'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.save),
+            tooltip: 'Save to PDF',
+            onPressed: () {
+              _userEmails.then((emails) => _createPdf(emails));
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<String>>(
         future: _userEmails,
