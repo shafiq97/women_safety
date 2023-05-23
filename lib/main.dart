@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
+
 const String SETTINGS_BOX = "settings";
 const String API_BOX = "api_data";
 const String FAVORITES_BOX = "favorites_box";

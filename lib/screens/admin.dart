@@ -1,12 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart'; // used for getting the file directory
 import 'dart:io'; // used for file operations
+import 'package:external_path/external_path.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -46,7 +43,7 @@ class _AdminPageState extends State<AdminPage> {
     pdf.addPage(pw.Page(
       build: (pw.Context context) {
         return pw.Center(
-          child: pw.Text('Hello World',
+          child: pw.Text('List of users',
               style: pw.TextStyle(font: ttf, fontSize: 40)),
         );
       },
@@ -61,10 +58,20 @@ class _AdminPageState extends State<AdminPage> {
         ),
       ),
     ));
+    String paths;
 
-    final output = await getTemporaryDirectory();
-    final file = File('${output.path}/users.pdf');
+    paths = await ExternalPath.getExternalStoragePublicDirectory(
+        ExternalPath.DIRECTORY_DOWNLOADS);
+
+    final file = File('$paths/users.pdf');
     await file.writeAsBytes(await pdf.save());
+
+    // Show SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('PDF saved in documents directory'),
+      ),
+    );
   }
 
   @override

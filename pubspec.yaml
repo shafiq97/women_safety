@@ -91,6 +91,8 @@ dependencies:
   flutter_clean_calendar: ^1.1.0
   pdf: ^3.6.0
   lottie: ^2.3.2
+  path_provider_ex: ^1.0.1
+  external_path: ^1.0.3
   
   
   

@@ -345,6 +345,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  external_path:
+    dependency: "direct main"
+    description:
+      name: external_path
+      sha256: "2095c626fbbefe70d5a4afc9b1137172a68ee2c276e51c3c1283394485bea8f4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   facebook_auth_desktop:
     dependency: transitive
     description:
@@ -1072,6 +1080,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.27"
+  path_provider_ex:
+    dependency: "direct main"
+    description:
+      name: path_provider_ex
+      sha256: f55d5ae21136f50da0c266efb5b350ec6300396debb099c7952b25fd512e45ae
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_provider_foundation:
     dependency: transitive
     description:

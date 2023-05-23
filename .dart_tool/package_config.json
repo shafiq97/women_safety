@@ -260,6 +260,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "external_path",
+      "rootUri": "file:///Users/shafiq/.pub-cache/hosted/pub.dev/external_path-1.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "facebook_auth_desktop",
       "rootUri": "file:///Users/shafiq/.pub-cache/hosted/pub.dev/facebook_auth_desktop-0.0.9",
       "packageUri": "lib/",
@@ -812,6 +818,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "path_provider_ex",
+      "rootUri": "file:///Users/shafiq/.pub-cache/hosted/pub.dev/path_provider_ex-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "path_provider_foundation",
       "rootUri": "file:///Users/shafiq/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.2",
       "packageUri": "lib/",
@@ -1310,7 +1322,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-05-23T15:27:03.796403Z",
+  "generated": "2023-05-23T16:13:55.680258Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
