@@ -2,6 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:google_login/provider/internet_provider.dart';
 import 'package:google_login/provider/sign_in_provider.dart';
+import 'package:google_login/screens/admin_login.dart';
 import 'package:google_login/screens/bottom_nav.dart';
 
 import 'package:google_login/screens/phoneauth_screen.dart';
@@ -25,6 +26,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
   final RoundedLoadingButtonController googleController =
       RoundedLoadingButtonController();
+  final RoundedLoadingButtonController adminController =
+      RoundedLoadingButtonController();
+
+  // handling admin sigin in
+  Future handleAdminSignIn() async {
+    // TODO: Add the logic for admin sign in
+    // If successful
+    adminController.success();
+
+    // Navigate to the Admin Page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AdminSignInPage()),
+    );
+
+    // If error occurred
+    // adminController.error();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +164,45 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 60,
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RoundedLoadingButton(
+                  controller: adminController,
+                  onPressed: () {
+                    handleAdminSignIn();
+                  },
+                  successColor: Colors.blue,
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  elevation: 0,
+                  borderRadius: 10,
+                  color: Colors.blue,
+                  child: Wrap(
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.userShield,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        "Login as Admin",
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
               // facebook login button
             ],
           )

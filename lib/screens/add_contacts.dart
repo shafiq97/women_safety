@@ -70,7 +70,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
   }
 
   String location = 'Null, Press Button';
-  String Address = 'search';
+  String address = 'search';
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -106,12 +106,12 @@ class _AddContactsPageState extends State<AddContactsPage> {
         desiredAccuracy: LocationAccuracy.high);
   }
 
-  Future<void> GetAddressFromLatLong(Position position) async {
+  Future<void> getAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);
     Placemark place = placemarks[0];
-    Address =
+    address =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(() {});
   }
@@ -281,7 +281,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: Text(
-                            '${Address}',
+                            '${address}',
                             style: GoogleFonts.lato(
                               textStyle: TextStyle(
                                   fontSize: 13,
@@ -307,7 +307,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
                         Position position = await _getGeoLocationPosition();
                         location =
                             'Lat: ${position.latitude} , Long: ${position.longitude}';
-                        GetAddressFromLatLong(position);
+                        getAddressFromLatLong(position);
                       },
                     ),
                   ),
@@ -392,7 +392,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
   Future<void> _sendSMS(List<String> recipients) async {
     try {
       String _result = await sendSMS(
-        message: _controllerMessage.text + '\n${Address}',
+        message: _controllerMessage.text + '\n${address}',
         recipients: recipients,
         sendDirect: sendDirect,
       );
