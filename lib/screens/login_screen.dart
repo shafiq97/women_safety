@@ -4,6 +4,7 @@ import 'package:google_login/provider/internet_provider.dart';
 import 'package:google_login/provider/sign_in_provider.dart';
 import 'package:google_login/screens/admin_login.dart';
 import 'package:google_login/screens/bottom_nav.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_login/screens/phoneauth_screen.dart';
 import 'package:google_login/utils/config.dart';
@@ -31,19 +32,20 @@ class _LoginScreenState extends State<LoginScreen> {
       RoundedLoadingButtonController();
 
   // handling admin sigin in
+
   Future handleAdminSignIn() async {
-    // TODO: Add the logic for admin sign in
-    // If successful
-    adminController.success();
-
-    // Navigate to the Admin Page
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AdminSignInPage()),
-    );
-
-    // If error occurred
-    // adminController.error();
+    try {
+      await FirebaseAuth.instance.signOut();
+      adminController.reset();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AdminSignInPage()),
+      );
+    } catch (e) {
+      // Handle error
+      print('Error signing out: $e');
+      adminController.error();
+    }
   }
 
   void logSignIn(String email) {
@@ -268,7 +270,10 @@ class _LoginScreenState extends State<LoginScreen> {
   // handle after signin
   handleAfterSignIn() {
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      nextScreenReplace(context, const BottomNav());
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNav()),
+      );
     });
   }
 }
