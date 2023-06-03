@@ -59,6 +59,7 @@ class _LocationState extends State<Location> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       showList();
     });
+    _controllerMessage = TextEditingController(text: "HELP!");
     initPlatformState();
     super.initState();
   }
@@ -295,7 +296,7 @@ class _LocationState extends State<Location> {
 
   Future<void> initPlatformState() async {
     _controllerPeople = TextEditingController();
-    _controllerMessage = TextEditingController();
+    // _controllerMessage = TextEditingController();
   }
 
   Future<void> _sendSMS(List<String> recipients) async {

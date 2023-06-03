@@ -17,6 +17,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   void initState() {
     super.initState();
+    _controllerMessage = TextEditingController(text: "HELP!");
     initPlatformState();
   }
 
@@ -177,7 +178,7 @@ class _MessageScreenState extends State<MessageScreen> {
 
   Future<void> initPlatformState() async {
     _controllerPeople = TextEditingController();
-    _controllerMessage = TextEditingController();
+    // _controllerMessage = TextEditingController();
   }
 
   Future<void> _sendSMS(List<String> recipients) async {

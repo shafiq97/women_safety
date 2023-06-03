@@ -66,6 +66,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       showList();
     });
+    _controllerMessage = TextEditingController(text: "HELP!");
     initPlatformState();
 
     super.initState();
@@ -386,7 +387,7 @@ class _AddContactsPageState extends State<AddContactsPage> {
 
   Future<void> initPlatformState() async {
     _controllerPeople = TextEditingController();
-    _controllerMessage = TextEditingController();
+    // _controllerMessage = TextEditingController();
   }
 
   void _send() {
