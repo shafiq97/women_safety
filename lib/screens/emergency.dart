@@ -35,12 +35,18 @@ class Emergency extends StatelessWidget {
             image: "assets/enjoy.jpg",
             number: "+603-27806803",
           ),
-          // Police(
-          //   title: 'Disaster Management',
-          //   subtitle: "Tap here or dial 999",
-          //   image: "assets/e4.jpg",
-          //   number: "108",
-          // ),
+          Police(
+            title: 'Hospital',
+            subtitle: "Tap here or dial 03-51237333",
+            image: "assets/hosp.png",
+            number: "03-51237333",
+          ),
+          Police(
+            title: 'Fire Department',
+            subtitle: "Tap here or dial 603-8892 7600",
+            image: "assets/e4.jpg",
+            number: "603-8892 7600",
+          ),
         ],
       ),
     );
